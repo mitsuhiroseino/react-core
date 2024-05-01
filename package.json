@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "author": "Mitsuhiro Seino",
   "license": "MIT",
-  "private": true,
   "main": "build/index.cjs",
   "module": "build/index.mjs",
   "types": "build/index.d.ts",
@@ -28,8 +27,8 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@visue/core": "../../local/@visue/core",
-    "@visue/web-core": "../../local/@visue/web-core",
+    "@visue/core": "^0.1.0",
+    "@visue/web-core": "^0.1.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-redux": "^8.1.1"
@@ -47,7 +46,7 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/jest": "^29.5.0",
     "@types/lodash-es": "^4.17.6",
-    "@visue/dev": "../../local/@visue/dev",
+    "@visue/dev": "^0.1.0",
     "babel-jest": "^29.5.0",
     "fs-extra": "^10.0.1",
     "jest": "^29.5.0",

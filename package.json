@@ -12,7 +12,7 @@
   ],
   "engines": {
     "npm": "use yarn instead",
-    "yarn": "4.1.0"
+    "yarn": "^4.0.0"
   },
   "scripts": {
     "build": "rimraf build && rollup --config",
@@ -61,5 +61,5 @@
     "tslib": "^2.5.0",
     "typescript": "^5.0.0"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.2.1"
 }

@@ -2241,39 +2241,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@visue/core@file:../../local/@visue/core::locator=%40visue%2Freact-core%40workspace%3A.":
-  version: 0.2.0
-  resolution: "@visue/core@file:../../local/@visue/core#../../local/@visue/core::hash=c6e915&locator=%40visue%2Freact-core%40workspace%3A."
+"@visue/core@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/core@npm:0.1.0"
   dependencies:
     bignumber.js: "npm:^9.1.1"
     date-fns: "npm:^2.29.3"
     geolib: "npm:^3.3.4"
+    iconv-lite: "npm:^0.6.3"
     lodash: "npm:^4.17.21"
     nanoid: "npm:^4.0.1"
-  checksum: 10c0/77cce45417b4dc6e560324b454557f9d375b5db2ff3844a1cee6463f404cb3c81705b0b0545a5ad32bdd70d9b8e8648af8fc8666018c85ef3c6794e18b304717
+  checksum: 10c0/da8890fb6888e4bf3eb68e4ea768fc7d35937e92b84426031d1e2b63620545ebd0a7628ee617e6e9fbfa034d69edfad37039b22e8aff3e40033b1fe5f899d6c7
   languageName: node
   linkType: hard
 
-"@visue/core@file:../core::locator=%40visue%2Fweb-core%40file%3A..%2F..%2Flocal%2F%40visue%2Fweb-core%23..%2F..%2Flocal%2F%40visue%2Fweb-core%3A%3Ahash%3D355a5e%26locator%3D%2540visue%252Freact-core%2540workspace%253A.":
-  version: 0.2.0
-  resolution: "@visue/core@file:../core#../core::hash=c6e915&locator=%40visue%2Fweb-core%40file%3A..%2F..%2Flocal%2F%40visue%2Fweb-core%23..%2F..%2Flocal%2F%40visue%2Fweb-core%3A%3Ahash%3D355a5e%26locator%3D%2540visue%252Freact-core%2540workspace%253A."
-  dependencies:
-    bignumber.js: "npm:^9.1.1"
-    date-fns: "npm:^2.29.3"
-    geolib: "npm:^3.3.4"
-    lodash: "npm:^4.17.21"
-    nanoid: "npm:^4.0.1"
-  checksum: 10c0/77cce45417b4dc6e560324b454557f9d375b5db2ff3844a1cee6463f404cb3c81705b0b0545a5ad32bdd70d9b8e8648af8fc8666018c85ef3c6794e18b304717
-  languageName: node
-  linkType: hard
-
-"@visue/dev@file:../../local/@visue/dev::locator=%40visue%2Freact-core%40workspace%3A.":
-  version: 0.2.0
-  resolution: "@visue/dev@file:../../local/@visue/dev#../../local/@visue/dev::hash=8e5fec&locator=%40visue%2Freact-core%40workspace%3A."
+"@visue/dev@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/dev@npm:0.1.0"
   dependencies:
     fs-extra: "npm:^11.0.1"
     lodash: "npm:^4.17.21"
-  checksum: 10c0/8c6351a307e3445dc76de91a231b51d63bd0c0be63e908e90a2e8ba880fa5ff4609b1c59f12f9c07cf0a7a2af57525ae992ed53d76a1c94de2b6faa62cd44d78
+  checksum: 10c0/81bf23a44680a8c1c8cee0dc27e414f250973535d66e9bc90c3a5d7b2f3249600bbdc93deaeca93cb442ad5b09da97d71b82b56cf09778ea000c3c8bd287ad62
   languageName: node
   linkType: hard
 
@@ -2293,9 +2281,9 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@types/jest": "npm:^29.5.0"
     "@types/lodash-es": "npm:^4.17.6"
-    "@visue/core": ../../local/@visue/core
-    "@visue/dev": ../../local/@visue/dev
-    "@visue/web-core": ../../local/@visue/web-core
+    "@visue/core": "npm:^0.1.0"
+    "@visue/dev": "npm:^0.1.0"
+    "@visue/web-core": "npm:^0.1.0"
     babel-jest: "npm:^29.5.0"
     fs-extra: "npm:^10.0.1"
     jest: "npm:^29.5.0"
@@ -2315,14 +2303,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@visue/web-core@file:../../local/@visue/web-core::locator=%40visue%2Freact-core%40workspace%3A.":
-  version: 0.2.0
-  resolution: "@visue/web-core@file:../../local/@visue/web-core#../../local/@visue/web-core::hash=355a5e&locator=%40visue%2Freact-core%40workspace%3A."
+"@visue/web-core@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/web-core@npm:0.1.0"
   dependencies:
-    "@visue/core": ../core
+    "@visue/core": "npm:^0.1.0"
     chroma-js: "npm:^2.4.2"
     lodash: "npm:^4.17.21"
-  checksum: 10c0/3b8430a27bc9cf2b48daf8eee80b4a6d7bbd58548505519904437f37ab0155e30f34d12a7b0c569406593d0520e988768c1cc06bcf0a57ce70b4890b53c9adac
+  checksum: 10c0/26a7e948710570970a19a2157f52794cdda6252a5673244bc08a355f195963948c4c4bb2c63b0e2ca020493d7de43eeee4fb814d992a680f6b12af769d40472f
   languageName: node
   linkType: hard
 
@@ -3788,7 +3776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2":
+"iconv-lite@npm:0.6.3, iconv-lite@npm:^0.6.2, iconv-lite@npm:^0.6.3":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
   dependencies:

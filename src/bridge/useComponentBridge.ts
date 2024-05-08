@@ -1,34 +1,36 @@
 import isFunction from 'lodash/isFunction';
 import isString from 'lodash/isString';
 import { useEffect, useState } from 'react';
-
 import useForwardedRef from '../hooks/useForwardedRef';
-import UseComponentAdapterOptions from './UseComponentAdapterOptions';
-import { Adapter, AdapterDefinition, AdapterOptions, AdapterProps } from './adapter';
+import ComponentBridge from './ComponentBridge';
+import ComponentBridgeDefinition from './ComponentBridgeDefinition';
+import ComponentBridgeOptions from './ComponentBridgeOptions';
+import ComponentBridgeProps from './ComponentBridgeProps';
+import UseComponentBridgeOptions from './UseComponentBridgeOptions';
 
 /**
  * ReactのコンポーネントとインスタンスでDOMを制御するタイプのコンポーネントの橋渡しをするHooks
  * @param create コンポーネントのインスタンスを返す関数、またはエレメントのタグ名、または任意のインスタンス
- * @param adapterDefinition アダプターの定義
+ * @param bridgeDefinition ブリッジの定義
  * @param props Reactのコンポーネントに渡されたプロパティ
  * @param options オプション
  * @returns
  */
-export default function useComponentAdapter<
+export default function useComponentBridge<
   C = HTMLElement,
-  P extends AdapterProps<C> = AdapterProps<C>,
-  O = AdapterOptions,
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O = ComponentBridgeOptions,
 >(
   create: (() => C) | string | C,
-  adapterDefinition: AdapterDefinition<C, P, O>,
+  bridgeDefinition: ComponentBridgeDefinition<C, P, O>,
   props: P,
-  options: UseComponentAdapterOptions<C, O> = {} as UseComponentAdapterOptions<C, O>,
+  options: UseComponentBridgeOptions<C, O> = {} as UseComponentBridgeOptions<C, O>,
 ): C {
   const { ref, targetRef, renderingDelay, ...rest } = options,
-    adapterOptions: O = rest as O,
+    bridgeOptions: O = rest as O,
     [setter] = useForwardedRef<C>(ref),
-    [adapter, setAdapter] = useState<Adapter<C, P, O>>(),
-    { recreationTriggers = [] } = adapterDefinition,
+    [bridge, setBridge] = useState<ComponentBridge<C, P, O>>(),
+    { recreationTriggers = [] } = bridgeDefinition,
     recreationDeps = recreationTriggers.map((propName) => props[propName]);
 
   // インスタンスの作成 & インスタンス破棄時の処理
@@ -41,7 +43,7 @@ export default function useComponentAdapter<
         : isString(create)
           ? (document.createElement(create) as any)
           : create,
-      newAdapter = new Adapter<C, P, O>(instance, adapterDefinition, props, adapterOptions);
+      newBridge = new ComponentBridge<C, P, O>(instance, bridgeDefinition, props, bridgeOptions);
     if (targetRef?.current && instance instanceof HTMLElement) {
       if (renderingDelay != null) {
         setTimeout(() => {
@@ -54,24 +56,24 @@ export default function useComponentAdapter<
     setter(instance);
     const { onInitialize } = props;
     onInitialize && onInitialize(instance);
-    setAdapter(newAdapter);
+    setBridge(newBridge);
     return () => {
-      if (newAdapter) {
-        newAdapter.destructor();
+      if (newBridge) {
+        newBridge.destructor();
         setter(null);
-        setAdapter(null);
+        setBridge(null);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, recreationDeps);
 
   useEffect(() => {
-    if (adapter) {
+    if (bridge) {
       // propsは常に最新の状態に更新
-      adapter.update(props, adapterOptions);
+      bridge.update(props, bridgeOptions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props, adapter]);
+  }, [props, bridge]);
 
-  return adapter?.instance;
+  return bridge?.instance;
 }

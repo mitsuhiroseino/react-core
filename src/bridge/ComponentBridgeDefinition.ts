@@ -1,16 +1,20 @@
-import AdapterProps from '../adapter/AdapterProps';
-import { AdapterFeatureOptions } from '../features';
-import { AccessorDefinition } from '../features/accessor';
-import { EffectDefinition } from '../features/effect';
-import { EventDefinition } from '../features/event';
-import AdapterOptions from './AdapterOptions';
+import ComponentBridgeOptions from './ComponentBridgeOptions';
+import ComponentBridgeProps from './ComponentBridgeProps';
+import { BridgeFeatureOptions } from './features';
+import { AccessorDefinition } from './features/accessor';
+import { EffectDefinition } from './features/effect';
+import { EventDefinition } from './features/event';
 
 /**
  * コンポーネントのインスタンスとReactを連携する為の定義
  * setterに渡された値が直近のgetterで取得した値と異なるインスタンスの場合には、
  * この定義に従いコンポーネントのインスタンスへの設定を行う。
  */
-type AdapterDefinition<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = AdapterOptions> = {
+type ComponentBridgeDefinition<
+  C = HTMLElement,
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O = ComponentBridgeOptions,
+> = {
   /**
    * コンポーネントのインスタンスのプロパティへのアクセスに関する定義
    * ステートとして扱うプロパティはここで定義したアクセサ経由で取得・更新をする必要がある
@@ -52,7 +56,7 @@ type AdapterDefinition<C = HTMLElement, P extends AdapterProps<C> = AdapterProps
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options?: AdapterFeatureOptions<O>,
+    options?: BridgeFeatureOptions<O>,
   ) => void;
 
   /**
@@ -68,7 +72,7 @@ type AdapterDefinition<C = HTMLElement, P extends AdapterProps<C> = AdapterProps
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options?: AdapterFeatureOptions<O>,
+    options?: BridgeFeatureOptions<O>,
   ) => void;
 
   /**
@@ -78,6 +82,6 @@ type AdapterDefinition<C = HTMLElement, P extends AdapterProps<C> = AdapterProps
    * @param options オプション
    * @returns
    */
-  destructor?: (instance: C, options?: AdapterFeatureOptions<O>) => void;
+  destructor?: (instance: C, options?: BridgeFeatureOptions<O>) => void;
 };
-export default AdapterDefinition;
+export default ComponentBridgeDefinition;

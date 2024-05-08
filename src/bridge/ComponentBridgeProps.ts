@@ -1,7 +1,7 @@
 /**
  * React用にラップしたコンポーネントのプロパティ
  */
-type AdapterProps<C = HTMLElement> = {
+type ComponentBridgeProps<C = HTMLElement> = {
   /**
    * コンポーネントのインスタンス作成時のハンドラ
    * @param instance
@@ -10,4 +10,4 @@ type AdapterProps<C = HTMLElement> = {
   onInitialize?: (instance: C) => void;
 };
 
-export default AdapterProps;
+export default ComponentBridgeProps;

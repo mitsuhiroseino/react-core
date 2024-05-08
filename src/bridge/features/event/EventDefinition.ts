@@ -1,13 +1,15 @@
-import { Adapter, AdapterOptions, AdapterProps } from '../../adapter';
-import AdapterFeatureOptions from '../AdapterFeatureOptions';
+import ComponentBridge from '../../ComponentBridge';
+import ComponentBridgeOptions from '../../ComponentBridgeOptions';
+import ComponentBridgeProps from '../../ComponentBridgeProps';
+import BridgeFeatureOptions from '../BridgeFeatureOptions';
 
 /**
  * Reactのイベントハンドラをコンポーネントのイベントに連携する為の定義
  */
 type EventDefinition<
   C = HTMLElement,
-  P extends AdapterProps<C> = AdapterProps<C>,
-  O extends AdapterOptions = AdapterOptions,
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O extends ComponentBridgeOptions = ComponentBridgeOptions,
 > = {
   /**
    * コンポーネントのイベント名
@@ -21,15 +23,15 @@ type EventDefinition<
 
   /**
    * Reactのハンドラをラップしたコンポーネント用のイベントリスナーを取得する為の関数。
-   * @param adapter コンポーネントのインスタンスのアダプター
+   * @param bridge コンポーネントのインスタンスのブリッジ
    * @param handler reactのイベントハンドラ
    * @param options 任意のオプション
    * @return イベントリスナー
    */
   createListener: (
-    adapter: Adapter<C, P, O>,
+    bridge: ComponentBridge<C, P, O>,
     handler?: (...args: unknown[]) => unknown,
-    options?: AdapterFeatureOptions<O>,
+    options?: BridgeFeatureOptions<O>,
   ) => (...args: unknown[]) => unknown;
 
   /**

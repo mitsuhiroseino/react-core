@@ -1,11 +1,11 @@
 import { ForwardedRef, MutableRefObject, Ref, RefObject } from 'react';
 
-import AdapterOptions from './adapter/AdapterOptions';
+import ComponentBridgeOptions from './ComponentBridgeOptions';
 
 /**
- * adapterのオプション
+ * bridgeのオプション
  */
-type UseComponentAdapterOptions<C = HTMLElement, O = AdapterOptions> = O & {
+type UseComponentBridgeOptions<C = HTMLElement, O = ComponentBridgeOptions> = O & {
   /**
    * コンポーネントのインスタンスを設定するref
    */
@@ -22,4 +22,4 @@ type UseComponentAdapterOptions<C = HTMLElement, O = AdapterOptions> = O & {
    */
   renderingDelay?: number;
 };
-export default UseComponentAdapterOptions;
+export default UseComponentBridgeOptions;

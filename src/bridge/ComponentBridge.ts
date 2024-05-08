@@ -1,10 +1,10 @@
-import { AdapterFeatureOptions } from '../features';
-import { AccessorAdapter } from '../features/accessor';
-import { EffectAdapter } from '../features/effect';
-import { EventAdapter } from '../features/event';
-import AdapterDefinition from './AdapterDefinition';
-import AdapterOptions from './AdapterOptions';
-import AdapterProps from './AdapterProps';
+import ComponentBridgeDefinition from './ComponentBridgeDefinition';
+import ComponentBridgeOptions from './ComponentBridgeOptions';
+import ComponentBridgeProps from './ComponentBridgeProps';
+import BridgeFeatureOptions from './features/BridgeFeatureOptions';
+import AccessorBridge from './features/accessor/AccessorBridge';
+import EffectBridge from './features/effect/EffectBridge';
+import EventBridge from './features/event/EventBridge';
 
 const _DESTRUCTOR = <C, O>(instance: C, options?: O) => {
   if (instance instanceof HTMLElement) {
@@ -20,7 +20,11 @@ const _DESTRUCTOR = <C, O>(instance: C, options?: O) => {
  * 単純にReactのステートと連携をすると取得と設定の無限ループになる場合がある。
  * 当クラスでは前回取得したインスタンスと同じインスタンスを設定しようとした場合は、設定処理を実行しないという制御を行う。
  */
-class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = AdapterOptions> {
+class ComponentBridge<
+  C = HTMLElement,
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O = ComponentBridgeOptions,
+> {
   /**
    * コンポーネントのインスタンス
    */
@@ -31,9 +35,9 @@ class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = 
   }
 
   /**
-   * アダプター定義
+   * ブリッジ定義
    */
-  private _definition: AdapterDefinition<C, P, O>;
+  private _definition: ComponentBridgeDefinition<C, P, O>;
 
   /**
    * 初期化済みか
@@ -59,27 +63,27 @@ class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = 
   }
 
   /**
-   * アダプターの各機能
+   * ブリッジの各機能
    */
   private _features: {
-    accessor: AccessorAdapter<C, P, O>;
-    effect: EffectAdapter<C, P, O>;
-    event: EventAdapter<C, P, O>;
+    accessor: AccessorBridge<C, P, O>;
+    effect: EffectBridge<C, P, O>;
+    event: EventBridge<C, P, O>;
   };
 
   /**
    * デストラクターの委譲先
    */
-  private _destructor?: (instance: C, options?: AdapterFeatureOptions<O>) => void;
+  private _destructor?: (instance: C, options?: BridgeFeatureOptions<O>) => void;
 
   /**
    * コンストラクター
    * @param instance コンポーネントのインスタンス
-   * @param definition アダプターの定義
+   * @param definition ブリッジの定義
    * @param props Reactのプロパティ
-   * @param options アダプターのオプション
+   * @param options ブリッジのオプション
    */
-  constructor(instance: C, definition: AdapterDefinition<C, P, O>, props: P, options?: O) {
+  constructor(instance: C, definition: ComponentBridgeDefinition<C, P, O>, props: P, options?: O) {
     const me = this,
       { destructor = _DESTRUCTOR } = definition;
 
@@ -93,11 +97,11 @@ class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = 
     // 各機能の作成
     me._features = {
       // アクセサー
-      accessor: new AccessorAdapter(definition),
+      accessor: new AccessorBridge(definition),
       // エフェクト
-      effect: new EffectAdapter(definition),
+      effect: new EffectBridge(definition),
       // イベントハンドラー
-      event: new EventAdapter(definition),
+      event: new EventBridge(definition),
     };
 
     // 初回分のpropsで初期化
@@ -108,7 +112,7 @@ class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = 
   /**
    * プロパティ更新
    * @param props Reactのプロパティ
-   * @param options アダプターのオプション
+   * @param options ブリッジのオプション
    */
   update(props: P, options?: O): void {
     const me = this,
@@ -185,8 +189,8 @@ class Adapter<C = HTMLElement, P extends AdapterProps<C> = AdapterProps<C>, O = 
     me.isDestroyed = true;
   }
 
-  private _getFeatureOptions(options?: O): AdapterFeatureOptions<O> {
-    return { ...options, adapter: this };
+  private _getFeatureOptions(options?: O): BridgeFeatureOptions<O> {
+    return { ...options, bridge: this };
   }
 }
-export default Adapter;
+export default ComponentBridge;

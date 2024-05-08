@@ -1,9 +1,11 @@
 import isEqual from 'lodash/isEqual';
 import isString from 'lodash/isString';
-
-import { Adapter, AdapterDefinition, AdapterOptions, AdapterProps } from '../../adapter';
-import AdapterFeature from '../AdapterFeature';
-import AdapterFeatureOptions from '../AdapterFeatureOptions';
+import ComponentBridge from '../../ComponentBridge';
+import ComponentBridgeDefinition from '../../ComponentBridgeDefinition';
+import ComponentBridgeOptions from '../../ComponentBridgeOptions';
+import ComponentBridgeProps from '../../ComponentBridgeProps';
+import BridgeFeature from '../BridgeFeature';
+import BridgeFeatureOptions from '../BridgeFeatureOptions';
 import AccessorDefinition from './AccessorDefinition';
 
 /**
@@ -12,11 +14,11 @@ import AccessorDefinition from './AccessorDefinition';
  * 単純にReactのステートと連携をすると取得と設定の無限ループになる場合がある。
  * 当クラスでは前回取得したインスタンスと同じインスタンスを設定しようとした場合は、設定処理を実行しないという制御を行う。
  */
-class AccessorAdapter<
+class AccessorBridge<
   C = HTMLElement,
-  P extends AdapterProps<C> = AdapterProps<C>,
-  O extends AdapterOptions = AdapterOptions,
-> implements AdapterFeature<C, P, O>
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O extends ComponentBridgeOptions = ComponentBridgeOptions,
+> implements BridgeFeature<C, P, O>
 {
   /**
    * コンポーネントのプロパティを設定・取得する為のアクセサー
@@ -33,9 +35,9 @@ class AccessorAdapter<
 
   /**
    * コンストラクター
-   * @param definition アダプター定義
+   * @param definition ブリッジ定義
    */
-  constructor(definition: AdapterDefinition<C, P, O>) {
+  constructor(definition: ComponentBridgeDefinition<C, P, O>) {
     const me = this,
       { accessors = [] } = definition,
       accessorDefinitions = accessors.map(me.toAccessorDefinition);
@@ -61,7 +63,7 @@ class AccessorAdapter<
             return instance.getAttribute(accessor);
           }
         },
-        set: (instance: C, value: unknown, props: P, options: AdapterFeatureOptions<O>) => {
+        set: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => {
           if (instance instanceof HTMLElement) {
             instance.setAttribute(accessor, value as string);
           }
@@ -80,7 +82,7 @@ class AccessorAdapter<
    * @param options オプション
    * @returns
    */
-  get(instance: C, props: P, name: string, options: AdapterFeatureOptions<O>): unknown {
+  get(instance: C, props: P, name: string, options: BridgeFeatureOptions<O>): unknown {
     const me = this,
       accessor = me._accessors[name];
     if (accessor?.get) {
@@ -108,7 +110,7 @@ class AccessorAdapter<
    * @param options オプション
    * @returns
    */
-  set<V = unknown>(instance: C, props: P, name: string, value: V, options: AdapterFeatureOptions<O>): void {
+  set<V = unknown>(instance: C, props: P, name: string, value: V, options: BridgeFeatureOptions<O>): void {
     const me = this,
       accessor = me._accessors[name];
     if (accessor?.set) {
@@ -133,24 +135,24 @@ class AccessorAdapter<
 
   /**
    * プロパティ更新時の処理
-   * @param adapter アダプター
+   * @param bridge ブリッジ
    * @param newProps 更新後のプロパティ
    * @param oldProps 更新前のプロパティ
    * @param options オプション
    */
-  update(adapter: Adapter<C, P, O>, newProps: P, oldProps: P, options: AdapterFeatureOptions<O>): void {
+  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: BridgeFeatureOptions<O>): void {
     console.log('props is updated!!!');
   }
 
   /**
    * 当クラスを破棄する際の処理
-   * @param adapter アダプター
+   * @param bridge ブリッジ
    * @param options オプション
    */
-  destructor(adapter: Adapter<C, P, O>, options: AdapterFeatureOptions<O>): void {
+  destructor(bridge: ComponentBridge<C, P, O>, options: BridgeFeatureOptions<O>): void {
     const me = this;
     delete me._accessors;
     delete me._latestState;
   }
 }
-export default AccessorAdapter;
+export default AccessorBridge;

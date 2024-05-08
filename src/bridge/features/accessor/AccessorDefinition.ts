@@ -1,12 +1,12 @@
-import { AdapterOptions } from '../../adapter';
-import AdapterFeatureOptions from '../AdapterFeatureOptions';
+import ComponentBridgeOptions from '../../ComponentBridgeOptions';
+import BridgeFeatureOptions from '../BridgeFeatureOptions';
 
 /**
  * コンポーネントのプロパティへのアクセスに関する定義
  * ここで定義したプロパティへDhex.getおよびDhex.setでアクセスをした場合は、
  * 値またはインスタンスの変更があった場合のみコンポーネントのプロパティへ反映される。
  */
-type AccessorDefinition<C, P, O extends AdapterOptions = AdapterOptions> = {
+type AccessorDefinition<C, P, O extends ComponentBridgeOptions = ComponentBridgeOptions> = {
   /**
    * 対象のプロパティ名
    */
@@ -18,7 +18,7 @@ type AccessorDefinition<C, P, O extends AdapterOptions = AdapterOptions> = {
    * @param options
    * @returns
    */
-  get?: (instance: C, props: P, options: AdapterFeatureOptions<O>) => unknown;
+  get?: (instance: C, props: P, options: BridgeFeatureOptions<O>) => unknown;
 
   /**
    * 対象のプロパティに値を設定する為の処理
@@ -26,7 +26,7 @@ type AccessorDefinition<C, P, O extends AdapterOptions = AdapterOptions> = {
    * @param options
    * @returns
    */
-  set?: (instance: C, value: unknown, props: P, options: AdapterFeatureOptions<O>) => void;
+  set?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => void;
 
   /**
    * 値の簡易チェック。
@@ -40,12 +40,12 @@ type AccessorDefinition<C, P, O extends AdapterOptions = AdapterOptions> = {
   /**
    * getで取得した値を変換する
    */
-  convertFrom?: (instance: C, value: unknown, props: P, options: AdapterFeatureOptions<O>) => unknown;
+  convertFrom?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => unknown;
 
   /**
    * setする値を変換する
    */
-  convertTo?: (instance: C, value: unknown, props: P, options: AdapterFeatureOptions<O>) => unknown;
+  convertTo?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => unknown;
 
   /**
    * オブジェクトや配列配下の要素の比較を行う。オブジェクトや配列のインスタンスが異なる場合でも配下の値が一致する場合は一致として扱う。

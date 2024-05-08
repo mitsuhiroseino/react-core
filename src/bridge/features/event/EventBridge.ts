@@ -2,10 +2,12 @@ import capitalize from 'lodash/capitalize';
 import debounce from 'lodash/debounce';
 import isString from 'lodash/isString';
 import noop from 'lodash/noop';
-
-import { Adapter, AdapterDefinition, AdapterOptions, AdapterProps } from '../../adapter';
-import AdapterFeature from '../AdapterFeature';
-import AdapterFeatureOptions from '../AdapterFeatureOptions';
+import ComponentBridge from '../../ComponentBridge';
+import ComponentBridgeDefinition from '../../ComponentBridgeDefinition';
+import ComponentBridgeOptions from '../../ComponentBridgeOptions';
+import ComponentBridgeProps from '../../ComponentBridgeProps';
+import BridgeFeature from '../BridgeFeature';
+import BridgeFeatureOptions from '../BridgeFeatureOptions';
 import EventDefinition from './EventDefinition';
 
 // 各種デフォルト値
@@ -14,7 +16,7 @@ const _GROUP = Symbol('default'),
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: AdapterFeatureOptions<O>,
+    options: BridgeFeatureOptions<O>,
   ) => {
     if (instance instanceof HTMLElement) {
       instance.addEventListener(eventName, listener);
@@ -24,7 +26,7 @@ const _GROUP = Symbol('default'),
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: AdapterFeatureOptions<O>,
+    options: BridgeFeatureOptions<O>,
   ) => {
     if (instance instanceof HTMLElement) {
       instance.removeEventListener(eventName, listener);
@@ -37,14 +39,14 @@ const _GROUP = Symbol('default'),
  * 単純にReactのステートと連携をすると取得と設定の無限ループになる場合がある。
  * 当クラスでは前回取得したインスタンスと同じインスタンスを設定しようとした場合は、設定処理を実行しないという制御を行う。
  */
-class EventAdapter<
+class EventBridge<
   C = HTMLElement,
-  P extends AdapterProps<C> = AdapterProps<C>,
-  O extends AdapterOptions = AdapterOptions,
-> implements AdapterFeature<C, P, O>
+  P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
+  O extends ComponentBridgeOptions = ComponentBridgeOptions,
+> implements BridgeFeature<C, P, O>
 {
   /**
-   * アダプター定義
+   * ブリッジ定義
    */
   private _definitions: EventDefinition<C, P, O>[];
 
@@ -86,7 +88,7 @@ class EventAdapter<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: AdapterFeatureOptions<O>,
+    options: BridgeFeatureOptions<O>,
   ) => void;
 
   /**
@@ -96,14 +98,14 @@ class EventAdapter<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: AdapterFeatureOptions<O>,
+    options: BridgeFeatureOptions<O>,
   ) => void;
 
   /**
    * コンストラクター
-   * @param definition アダプター定義
+   * @param definition ブリッジ定義
    */
-  constructor(definition: AdapterDefinition<C, P, O>) {
+  constructor(definition: ComponentBridgeDefinition<C, P, O>) {
     const me = this,
       { events = [], on = _ON, un = _UN } = definition,
       eventDefinitions = events.map(me.toEventDefinition);
@@ -132,7 +134,7 @@ class EventAdapter<
       return {
         eventName: event,
         handlerName: `on${capitalize(event)}`,
-        createListener: (adapter, handler) => handler,
+        createListener: (bridge, handler) => handler,
       };
     } else {
       return event;
@@ -146,10 +148,10 @@ class EventAdapter<
    * @param options オプション
    */
   on(
-    adapter: Adapter<C, P, O>,
+    bridge: ComponentBridge<C, P, O>,
     eventName: string,
     handler?: (...args: unknown[]) => unknown,
-    options?: AdapterFeatureOptions<O>,
+    options?: BridgeFeatureOptions<O>,
   ) {
     const me = this,
       instanceListeners = me._instanceListeners,
@@ -169,11 +171,11 @@ class EventAdapter<
           instanceListener = me._createInstanceListener(eventName);
         }
         // インスタンスへのリスナーの追加方法が定義されている場合
-        me._on(adapter.instance, eventName, instanceListener, options);
+        me._on(bridge.instance, eventName, instanceListener, options);
         instanceListeners[eventName] = instanceListener;
       }
       // instanceListener内で実行するリスナーを作成
-      me._listeners[eventName] = eventDefinition.createListener(adapter, handler || noop, options);
+      me._listeners[eventName] = eventDefinition.createListener(bridge, handler || noop, options);
     }
   }
 
@@ -229,24 +231,24 @@ class EventAdapter<
    * @param listener イベントリスナー
    * @param options オプション
    */
-  un(adapter: Adapter<C, P, O>, eventName: string, options: AdapterFeatureOptions<O>) {
+  un(bridge: ComponentBridge<C, P, O>, eventName: string, options: BridgeFeatureOptions<O>) {
     const me = this,
       instanceListener = me._instanceListeners[eventName];
     if (instanceListener) {
       // インスタンスのリスナーの削除方法が定義されている場合
-      me._un(adapter.instance, eventName, instanceListener, options);
+      me._un(bridge.instance, eventName, instanceListener, options);
       delete me._instanceListeners[eventName];
     }
   }
 
   /**
    * プロパティ更新時の処理
-   * @param adapter アダプター
+   * @param bridge ブリッジ
    * @param newProps 更新後のプロパティ
    * @param oldProps 更新前のプロパティ
    * @param options オプション
    */
-  update(adapter: Adapter<C, P, O>, newProps: P, oldProps: P, options: AdapterFeatureOptions<O>): void {
+  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: BridgeFeatureOptions<O>): void {
     const me = this,
       events = me._definitions;
     // イベントハンドラの更新
@@ -254,14 +256,14 @@ class EventAdapter<
       const { eventName, handlerName } = event;
       if (handlerName == null) {
         // reactのハンドラーの指定がない場合
-        me.on(adapter, eventName, null, options);
+        me.on(bridge, eventName, null, options);
       } else {
         // reactのハンドラーの指定がある場合
         const newHandler = newProps[handlerName],
           oldHandler = oldProps[handlerName];
         if (newHandler !== oldHandler) {
-          // adapterを介してイベントリスナーをinstanceへ設定
-          me.on(adapter, eventName, newHandler, options);
+          // bridgeを介してイベントリスナーをinstanceへ設定
+          me.on(bridge, eventName, newHandler, options);
         }
       }
     }
@@ -269,14 +271,14 @@ class EventAdapter<
 
   /**
    * 当クラスを破棄する際の処理
-   * @param adapter アダプター
+   * @param bridge ブリッジ
    * @param options オプション
    */
-  destructor(adapter: Adapter<C, P, O>, options: AdapterFeatureOptions<O>): void {
+  destructor(bridge: ComponentBridge<C, P, O>, options: BridgeFeatureOptions<O>): void {
     const me = this;
     for (const eventName in me._instanceListeners) {
       // 自分が追加したリスナーは削除しておく
-      me.un(adapter, eventName, options);
+      me.un(bridge, eventName, options);
     }
     delete me._definitions;
     delete me._events;
@@ -287,4 +289,4 @@ class EventAdapter<
     delete me._un;
   }
 }
-export default EventAdapter;
+export default EventBridge;

@@ -1,4 +1,7 @@
-import { AccessorAdapter, AdapterFeatureOptions, EffectAdapter, EventAdapter } from '../features';
+import { AdapterFeatureOptions } from '../features';
+import { AccessorAdapter } from '../features/accessor';
+import { EffectAdapter } from '../features/effect';
+import { EventAdapter } from '../features/event';
 import AdapterDefinition from './AdapterDefinition';
 import AdapterOptions from './AdapterOptions';
 import AdapterProps from './AdapterProps';

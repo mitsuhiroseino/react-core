@@ -1,5 +1,5 @@
-export type { default as AdapterFeature } from './AdapterFeature';
-export type { default as AdapterFeatureOptions } from './AdapterFeatureOptions';
-export * from './accessor';
-export * from './effect';
-export * from './event';
+export { default as AdapterFeature } from './AdapterFeature';
+export { default as AdapterFeatureOptions } from './AdapterFeatureOptions';
+export * as accessor from './accessor';
+export * as effect from './effect';
+export * as event from './event';

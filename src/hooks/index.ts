@@ -13,5 +13,6 @@ export { default as useOptions } from './useOptions';
 export { default as useRefs } from './useRefs';
 export { default as useResize } from './useResize';
 export { default as useStringAnimation } from './useStringAnimation';
+export { default as useSyncedValues } from './useSyncedValues';
 export { default as useValueAnimation } from './useValueAnimation';
 export { default as useWorkerJs } from './useWorkerJs';

@@ -1,5 +1,5 @@
 import pick from 'lodash/pick';
-import { MutableRefObject, useCallback, useEffect, useRef } from 'react';
+import { MutableRefObject, useCallback, useEffect } from 'react';
 
 import useForwardedRef from '../useForwardedRef';
 import { UseResizeOptions, UseResizeRect } from './types';

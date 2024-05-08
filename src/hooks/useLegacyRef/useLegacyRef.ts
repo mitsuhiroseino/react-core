@@ -1,5 +1,5 @@
 import isFunction from 'lodash/isFunction';
-import React, { ForwardedRef, LegacyRef, useEffect, useRef } from 'react';
+import { ForwardedRef, LegacyRef, useEffect, useRef } from 'react';
 
 /**
  * forwardRefで渡されたrefをLegacyRefに変換するhooks

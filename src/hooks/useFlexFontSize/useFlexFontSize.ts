@@ -1,7 +1,4 @@
-import pick from 'lodash/pick';
-import { useCallback, useEffect, useMemo } from 'react';
-
-import { UseResizeRect } from './types';
+import { useMemo } from 'react';
 
 /**
  * elementにwidth,height変更時のハンドラーを設定する

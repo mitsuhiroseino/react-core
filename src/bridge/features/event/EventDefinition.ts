@@ -1,7 +1,7 @@
 import ComponentBridge from '../../ComponentBridge';
 import ComponentBridgeOptions from '../../ComponentBridgeOptions';
 import ComponentBridgeProps from '../../ComponentBridgeProps';
-import BridgeFeatureOptions from '../BridgeFeatureOptions';
+import FeatureBridgeOptions from '../FeatureBridgeOptions';
 
 /**
  * Reactのイベントハンドラをコンポーネントのイベントに連携する為の定義
@@ -31,7 +31,7 @@ type EventDefinition<
   createListener: (
     bridge: ComponentBridge<C, P, O>,
     handler?: (...args: unknown[]) => unknown,
-    options?: BridgeFeatureOptions<O>,
+    options?: FeatureBridgeOptions<O>,
   ) => (...args: unknown[]) => unknown;
 
   /**

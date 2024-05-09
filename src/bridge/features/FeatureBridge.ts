@@ -1,9 +1,9 @@
 import ComponentBridge from '../ComponentBridge';
 import ComponentBridgeOptions from '../ComponentBridgeOptions';
 import ComponentBridgeProps from '../ComponentBridgeProps';
-import ComponentBridgeFeatureOptions from './BridgeFeatureOptions';
+import ComponentBridgeFeatureOptions from './FeatureBridgeOptions';
 
-interface BridgeFeature<
+interface FeatureBridge<
   C = HTMLElement,
   P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
   O extends ComponentBridgeOptions = ComponentBridgeOptions,
@@ -24,4 +24,4 @@ interface BridgeFeature<
    */
   destructor(bridge: ComponentBridge<C, P, O>, options: ComponentBridgeFeatureOptions<O>): void;
 }
-export default BridgeFeature;
+export default FeatureBridge;

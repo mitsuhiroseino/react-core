@@ -4,8 +4,8 @@ import ComponentBridge from '../../ComponentBridge';
 import ComponentBridgeDefinition from '../../ComponentBridgeDefinition';
 import ComponentBridgeOptions from '../../ComponentBridgeOptions';
 import ComponentBridgeProps from '../../ComponentBridgeProps';
-import BridgeFeature from '../BridgeFeature';
-import BridgeFeatureOptions from '../BridgeFeatureOptions';
+import FeatureBridge from '../FeatureBridge';
+import FeatureBridgeOptions from '../FeatureBridgeOptions';
 import AccessorDefinition from './AccessorDefinition';
 
 /**
@@ -18,7 +18,7 @@ class AccessorBridge<
   C = HTMLElement,
   P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
   O extends ComponentBridgeOptions = ComponentBridgeOptions,
-> implements BridgeFeature<C, P, O>
+> implements FeatureBridge<C, P, O>
 {
   /**
    * コンポーネントのプロパティを設定・取得する為のアクセサー
@@ -63,7 +63,7 @@ class AccessorBridge<
             return instance.getAttribute(accessor);
           }
         },
-        set: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => {
+        set: (instance: C, value: unknown, props: P, options: FeatureBridgeOptions<O>) => {
           if (instance instanceof HTMLElement) {
             instance.setAttribute(accessor, value as string);
           }
@@ -82,7 +82,7 @@ class AccessorBridge<
    * @param options オプション
    * @returns
    */
-  get(instance: C, props: P, name: string, options: BridgeFeatureOptions<O>): unknown {
+  get(instance: C, props: P, name: string, options: FeatureBridgeOptions<O>): unknown {
     const me = this,
       accessor = me._accessors[name];
     if (accessor?.get) {
@@ -110,7 +110,7 @@ class AccessorBridge<
    * @param options オプション
    * @returns
    */
-  set<V = unknown>(instance: C, props: P, name: string, value: V, options: BridgeFeatureOptions<O>): void {
+  set<V = unknown>(instance: C, props: P, name: string, value: V, options: FeatureBridgeOptions<O>): void {
     const me = this,
       accessor = me._accessors[name];
     if (accessor?.set) {
@@ -140,7 +140,7 @@ class AccessorBridge<
    * @param oldProps 更新前のプロパティ
    * @param options オプション
    */
-  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: BridgeFeatureOptions<O>): void {
+  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: FeatureBridgeOptions<O>): void {
     console.log('props is updated!!!');
   }
 
@@ -149,7 +149,7 @@ class AccessorBridge<
    * @param bridge ブリッジ
    * @param options オプション
    */
-  destructor(bridge: ComponentBridge<C, P, O>, options: BridgeFeatureOptions<O>): void {
+  destructor(bridge: ComponentBridge<C, P, O>, options: FeatureBridgeOptions<O>): void {
     const me = this;
     delete me._accessors;
     delete me._latestState;

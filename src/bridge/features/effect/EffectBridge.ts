@@ -3,8 +3,8 @@ import ComponentBridge from '../../ComponentBridge';
 import ComponentBridgeDefinition from '../../ComponentBridgeDefinition';
 import ComponentBridgeOptions from '../../ComponentBridgeOptions';
 import ComponentBridgeProps from '../../ComponentBridgeProps';
-import BridgeFeature from '../BridgeFeature';
-import BridgeFeatureOptions from '../BridgeFeatureOptions';
+import FeatureBridge from '../FeatureBridge';
+import FeatureBridgeOptions from '../FeatureBridgeOptions';
 import EffectDefinition from './EffectDefinition';
 
 /**
@@ -17,7 +17,7 @@ class EffectBridge<
   C = HTMLElement,
   P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
   O extends ComponentBridgeOptions = ComponentBridgeOptions,
-> implements BridgeFeature<C, P, O>
+> implements FeatureBridge<C, P, O>
 {
   /**
    * ブリッジ定義
@@ -63,7 +63,7 @@ class EffectBridge<
    * @param oldProps 更新前のプロパティ
    * @param options オプション
    */
-  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: BridgeFeatureOptions<O>): void {
+  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: FeatureBridgeOptions<O>): void {
     const me = this,
       effects = me._definitions;
     // プロパティに変更が有った場合は処理を実行
@@ -80,7 +80,7 @@ class EffectBridge<
    * @param bridge ブリッジ
    * @param options オプション
    */
-  destructor(bridge: ComponentBridge<C, P, O>, options: BridgeFeatureOptions<O>): void {
+  destructor(bridge: ComponentBridge<C, P, O>, options: FeatureBridgeOptions<O>): void {
     const me = this;
     delete me._definitions;
   }

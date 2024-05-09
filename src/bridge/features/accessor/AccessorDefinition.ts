@@ -1,5 +1,5 @@
 import ComponentBridgeOptions from '../../ComponentBridgeOptions';
-import BridgeFeatureOptions from '../BridgeFeatureOptions';
+import FeatureBridgeOptions from '../FeatureBridgeOptions';
 
 /**
  * コンポーネントのプロパティへのアクセスに関する定義
@@ -18,7 +18,7 @@ type AccessorDefinition<C, P, O extends ComponentBridgeOptions = ComponentBridge
    * @param options
    * @returns
    */
-  get?: (instance: C, props: P, options: BridgeFeatureOptions<O>) => unknown;
+  get?: (instance: C, props: P, options: FeatureBridgeOptions<O>) => unknown;
 
   /**
    * 対象のプロパティに値を設定する為の処理
@@ -26,7 +26,7 @@ type AccessorDefinition<C, P, O extends ComponentBridgeOptions = ComponentBridge
    * @param options
    * @returns
    */
-  set?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => void;
+  set?: (instance: C, value: unknown, props: P, options: FeatureBridgeOptions<O>) => void;
 
   /**
    * 値の簡易チェック。
@@ -40,12 +40,12 @@ type AccessorDefinition<C, P, O extends ComponentBridgeOptions = ComponentBridge
   /**
    * getで取得した値を変換する
    */
-  convertFrom?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => unknown;
+  convertFrom?: (instance: C, value: unknown, props: P, options: FeatureBridgeOptions<O>) => unknown;
 
   /**
    * setする値を変換する
    */
-  convertTo?: (instance: C, value: unknown, props: P, options: BridgeFeatureOptions<O>) => unknown;
+  convertTo?: (instance: C, value: unknown, props: P, options: FeatureBridgeOptions<O>) => unknown;
 
   /**
    * オブジェクトや配列配下の要素の比較を行う。オブジェクトや配列のインスタンスが異なる場合でも配下の値が一致する場合は一致として扱う。

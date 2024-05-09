@@ -6,8 +6,8 @@ import ComponentBridge from '../../ComponentBridge';
 import ComponentBridgeDefinition from '../../ComponentBridgeDefinition';
 import ComponentBridgeOptions from '../../ComponentBridgeOptions';
 import ComponentBridgeProps from '../../ComponentBridgeProps';
-import BridgeFeature from '../BridgeFeature';
-import BridgeFeatureOptions from '../BridgeFeatureOptions';
+import FeatureBridge from '../FeatureBridge';
+import FeatureBridgeOptions from '../FeatureBridgeOptions';
 import EventDefinition from './EventDefinition';
 
 // 各種デフォルト値
@@ -16,7 +16,7 @@ const _GROUP = Symbol('default'),
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: BridgeFeatureOptions<O>,
+    options: FeatureBridgeOptions<O>,
   ) => {
     if (instance instanceof HTMLElement) {
       instance.addEventListener(eventName, listener);
@@ -26,7 +26,7 @@ const _GROUP = Symbol('default'),
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: BridgeFeatureOptions<O>,
+    options: FeatureBridgeOptions<O>,
   ) => {
     if (instance instanceof HTMLElement) {
       instance.removeEventListener(eventName, listener);
@@ -43,7 +43,7 @@ class EventBridge<
   C = HTMLElement,
   P extends ComponentBridgeProps<C> = ComponentBridgeProps<C>,
   O extends ComponentBridgeOptions = ComponentBridgeOptions,
-> implements BridgeFeature<C, P, O>
+> implements FeatureBridge<C, P, O>
 {
   /**
    * ブリッジ定義
@@ -88,7 +88,7 @@ class EventBridge<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: BridgeFeatureOptions<O>,
+    options: FeatureBridgeOptions<O>,
   ) => void;
 
   /**
@@ -98,7 +98,7 @@ class EventBridge<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options: BridgeFeatureOptions<O>,
+    options: FeatureBridgeOptions<O>,
   ) => void;
 
   /**
@@ -151,7 +151,7 @@ class EventBridge<
     bridge: ComponentBridge<C, P, O>,
     eventName: string,
     handler?: (...args: unknown[]) => unknown,
-    options?: BridgeFeatureOptions<O>,
+    options?: FeatureBridgeOptions<O>,
   ) {
     const me = this,
       instanceListeners = me._instanceListeners,
@@ -231,7 +231,7 @@ class EventBridge<
    * @param listener イベントリスナー
    * @param options オプション
    */
-  un(bridge: ComponentBridge<C, P, O>, eventName: string, options: BridgeFeatureOptions<O>) {
+  un(bridge: ComponentBridge<C, P, O>, eventName: string, options: FeatureBridgeOptions<O>) {
     const me = this,
       instanceListener = me._instanceListeners[eventName];
     if (instanceListener) {
@@ -248,7 +248,7 @@ class EventBridge<
    * @param oldProps 更新前のプロパティ
    * @param options オプション
    */
-  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: BridgeFeatureOptions<O>): void {
+  update(bridge: ComponentBridge<C, P, O>, newProps: P, oldProps: P, options: FeatureBridgeOptions<O>): void {
     const me = this,
       events = me._definitions;
     // イベントハンドラの更新
@@ -274,7 +274,7 @@ class EventBridge<
    * @param bridge ブリッジ
    * @param options オプション
    */
-  destructor(bridge: ComponentBridge<C, P, O>, options: BridgeFeatureOptions<O>): void {
+  destructor(bridge: ComponentBridge<C, P, O>, options: FeatureBridgeOptions<O>): void {
     const me = this;
     for (const eventName in me._instanceListeners) {
       // 自分が追加したリスナーは削除しておく

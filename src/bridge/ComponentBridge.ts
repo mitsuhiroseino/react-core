@@ -1,7 +1,7 @@
 import ComponentBridgeDefinition from './ComponentBridgeDefinition';
 import ComponentBridgeOptions from './ComponentBridgeOptions';
 import ComponentBridgeProps from './ComponentBridgeProps';
-import BridgeFeatureOptions from './features/BridgeFeatureOptions';
+import FeatureBridgeOptions from './features/FeatureBridgeOptions';
 import AccessorBridge from './features/accessor/AccessorBridge';
 import EffectBridge from './features/effect/EffectBridge';
 import EventBridge from './features/event/EventBridge';
@@ -74,7 +74,7 @@ class ComponentBridge<
   /**
    * デストラクターの委譲先
    */
-  private _destructor?: (instance: C, options?: BridgeFeatureOptions<O>) => void;
+  private _destructor?: (instance: C, options?: FeatureBridgeOptions<O>) => void;
 
   /**
    * コンストラクター
@@ -189,7 +189,7 @@ class ComponentBridge<
     me.isDestroyed = true;
   }
 
-  private _getFeatureOptions(options?: O): BridgeFeatureOptions<O> {
+  private _getFeatureOptions(options?: O): FeatureBridgeOptions<O> {
     return { ...options, bridge: this };
   }
 }

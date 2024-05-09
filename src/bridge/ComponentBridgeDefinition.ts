@@ -1,6 +1,6 @@
 import ComponentBridgeOptions from './ComponentBridgeOptions';
 import ComponentBridgeProps from './ComponentBridgeProps';
-import { BridgeFeatureOptions } from './features';
+import FeatureBridgeOptions from './features/FeatureBridgeOptions';
 import { AccessorDefinition } from './features/accessor';
 import { EffectDefinition } from './features/effect';
 import { EventDefinition } from './features/event';
@@ -56,7 +56,7 @@ type ComponentBridgeDefinition<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options?: BridgeFeatureOptions<O>,
+    options?: FeatureBridgeOptions<O>,
   ) => void;
 
   /**
@@ -72,7 +72,7 @@ type ComponentBridgeDefinition<
     instance: C,
     eventName: string,
     listener: (...args: unknown[]) => unknown,
-    options?: BridgeFeatureOptions<O>,
+    options?: FeatureBridgeOptions<O>,
   ) => void;
 
   /**
@@ -82,6 +82,6 @@ type ComponentBridgeDefinition<
    * @param options オプション
    * @returns
    */
-  destructor?: (instance: C, options?: BridgeFeatureOptions<O>) => void;
+  destructor?: (instance: C, options?: FeatureBridgeOptions<O>) => void;
 };
 export default ComponentBridgeDefinition;

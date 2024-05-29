@@ -2,27 +2,27 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 /**
  * 2つの値を相互変換するhooks
- * @param value0 値0
  * @param value1 値1
- * @param toValue0 値1を値0に変換する関数
- * @param toValue1 値0を値1に変換する関数
- * @returns [value0, value1]
+ * @param value2 値2
+ * @param toValue1 値2を値1に変換する関数
+ * @param toValue2 値1を値2に変換する関数
+ * @returns [value1, value2]
  */
-export default function useSyncedValues<V0, V1>(
-  value0: V0,
+export default function useSyncedValues<V1, V2>(
   value1: V1,
-  toValue0: (value1: V1) => V0,
-  toValue1: (value0: V0) => V1,
-): [V0, V1] {
-  const [syncedValue0, setSyncedValue0] = useState(value0);
+  value2: V2,
+  toValue1: (value2: V2) => V1,
+  toValue2: (value1: V1) => V2,
+): [V1, V2] {
   const [syncedValue1, setSyncedValue1] = useState(value1);
-  const value0Ref = useRef(value0);
+  const [syncedValue2, setSyncedValue2] = useState(value2);
   const value1Ref = useRef(value1);
+  const value2Ref = useRef(value2);
 
-  useToOtherValue(value0, toValue1, setSyncedValue0, setSyncedValue1, value0Ref, value1Ref);
-  useToOtherValue(value1, toValue0, setSyncedValue1, setSyncedValue0, value1Ref, value0Ref);
+  useToOtherValue(value1, toValue2, setSyncedValue1, setSyncedValue2, value1Ref, value2Ref);
+  useToOtherValue(value2, toValue1, setSyncedValue2, setSyncedValue1, value2Ref, value1Ref);
 
-  return [syncedValue0, syncedValue1];
+  return [syncedValue1, syncedValue2];
 }
 
 // valueを変換しotherValueを更新するhooks

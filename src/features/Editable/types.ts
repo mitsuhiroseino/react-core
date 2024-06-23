@@ -1,9 +1,9 @@
-import { EntryItem } from '@visue/core/data/entries';
+import { EntityItem } from '@visue/core/data/entities';
 
 /**
  * 変更可能な値を持つコンポーネントのプロパティ
  */
-export type EditableProps<I extends EntryItem = EntryItem> = {
+export type EditableProps<I extends EntityItem = EntityItem> = {
   /**
    * 要素編集時のイベントハンドラー
    * @param editedItem 編集された要素

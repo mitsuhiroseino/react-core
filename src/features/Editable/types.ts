@@ -1,4 +1,4 @@
-import { EntityItem } from '@visue/core/data/entities';
+import { EntityItem } from '@visue/data/entities';
 
 /**
  * 変更可能な値を持つコンポーネントのプロパティ

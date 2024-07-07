@@ -1,4 +1,4 @@
-import asArray from '@visue/core/utils/array/asArray';
+import asArray from '@visue/utils/array/asArray';
 import noop from 'lodash/noop';
 import { UseValuesOptions, UseValuesProps } from './types';
 

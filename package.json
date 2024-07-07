@@ -1,6 +1,6 @@
 {
   "name": "@visue/react-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Mitsuhiro Seino",
   "license": "MIT",
   "main": "build/index.cjs",
@@ -23,7 +23,8 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@visue/core": "^0.1.0",
+    "@visue/data": "^0.1.0",
+    "@visue/utils": "^0.1.1",
     "@visue/web-core": "^0.1.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",

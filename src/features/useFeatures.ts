@@ -1,4 +1,4 @@
-import applyIf from '@visue/core/utils/function/applyIf';
+import applyIf from '@visue/utils/function/applyIf';
 import { useMemo } from 'react';
 import { Feature } from './types';
 

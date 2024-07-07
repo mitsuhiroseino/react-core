@@ -1,4 +1,4 @@
-import applyIf from '@visue/core/utils/function/applyIf';
+import applyIf from '@visue/utils/function/applyIf';
 import animateValue from '@visue/web-core/utils/anim/animateValue';
 import identity from 'lodash/identity';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';

@@ -2474,6 +2474,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@visue/data@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/data@npm:0.1.0"
+  dependencies:
+    "@visue/core": "npm:^0.1.0"
+    "@visue/datakit": "npm:^0.1.0"
+    "@visue/factory": "npm:^0.1.0"
+    "@visue/i18n": "npm:^0.1.0"
+    "@visue/message": "npm:^0.1.0"
+    "@visue/utils": "npm:^0.1.0"
+    lodash: "npm:^4.17.21"
+  checksum: 10c0/e9f4a4e797590a194fd87a15ef077cdf789bd01b06cf7f39d0f0ecd716842fb0c4cee853b18e0457adc1a5c096cc06722b6799c234ded0182139a308e7f3a91f
+  languageName: node
+  linkType: hard
+
+"@visue/datakit@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/datakit@npm:0.1.0"
+  dependencies:
+    "@visue/core": "npm:^0.1.0"
+    "@visue/utils": "npm:^0.1.0"
+    lodash: "npm:^4.17.21"
+  checksum: 10c0/a0859d39fd5d272d35cc81330311724bf5af5f774f0746473fb4a958e2219ef21af87ea1c4b5de9ec99f23cfad3afa6aab0f5a6bf7d0f0093a247f1b9cabacc1
+  languageName: node
+  linkType: hard
+
 "@visue/dev@npm:^0.1.0":
   version: 0.1.0
   resolution: "@visue/dev@npm:0.1.0"
@@ -2481,6 +2507,41 @@ __metadata:
     fs-extra: "npm:^11.0.1"
     lodash: "npm:^4.17.21"
   checksum: 10c0/81bf23a44680a8c1c8cee0dc27e414f250973535d66e9bc90c3a5d7b2f3249600bbdc93deaeca93cb442ad5b09da97d71b82b56cf09778ea000c3c8bd287ad62
+  languageName: node
+  linkType: hard
+
+"@visue/factory@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/factory@npm:0.1.0"
+  dependencies:
+    "@visue/utils": "npm:^0.1.1"
+  checksum: 10c0/1d46a28a313ebc4731e8185af1c1d1d2d2364ff9d2114ec28a2b686fc9823b506957f261a2d93d068f8c97b936689fbee1c67624c119628f4c5840bf254ad845
+  languageName: node
+  linkType: hard
+
+"@visue/i18n@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/i18n@npm:0.1.0"
+  dependencies:
+    "@visue/core": "npm:^0.1.0"
+    "@visue/datakit": "npm:^0.1.0"
+    "@visue/factory": "npm:^0.1.0"
+    "@visue/utils": "npm:^0.1.0"
+    lodash: "npm:^4.17.21"
+  checksum: 10c0/153837bcb816f33610116c1910973fdbce39d6aac916a2854ad7c470ae8360f74e9058e1292116e0ea7159fdc7fac6f8ee22ff45627576bca943e014445b1376
+  languageName: node
+  linkType: hard
+
+"@visue/message@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@visue/message@npm:0.1.0"
+  dependencies:
+    "@visue/core": "npm:^0.1.0"
+    "@visue/factory": "npm:^0.1.0"
+    "@visue/i18n": "npm:^0.1.0"
+    "@visue/utils": "npm:^0.1.0"
+    lodash: "npm:^4.17.21"
+  checksum: 10c0/f30ef2d192e13fb185cbf1286b607d2c3327c32f6608cd99b5c73b716e2239372e7fc45e144791eb7fb352e1f7a4979a80fe2119f3c8ed038c199c42c68e3aeb
   languageName: node
   linkType: hard
 
@@ -2501,8 +2562,9 @@ __metadata:
     "@trivago/prettier-plugin-sort-imports": "npm:^4.3.0"
     "@types/jest": "npm:^29.5.0"
     "@types/lodash-es": "npm:^4.17.6"
-    "@visue/core": "npm:^0.1.0"
+    "@visue/data": "npm:^0.1.0"
     "@visue/dev": "npm:^0.1.0"
+    "@visue/utils": "npm:^0.1.1"
     "@visue/web-core": "npm:^0.1.0"
     babel-jest: "npm:^29.5.0"
     eslint: "npm:^9.3.0"
@@ -2526,6 +2588,22 @@ __metadata:
     typescript-eslint: "npm:^7.10.0"
   languageName: unknown
   linkType: soft
+
+"@visue/utils@npm:^0.1.0, @visue/utils@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@visue/utils@npm:0.1.1"
+  dependencies:
+    bignumber.js: "npm:^9.1.1"
+    date-fns: "npm:^2.29.3"
+    geolib: "npm:^3.3.4"
+    iconv-lite: "npm:^0.6.3"
+    jsesc: "npm:^3.0.2"
+    lodash: "npm:^4.17.21"
+    nanoid: "npm:^4.0.1"
+    uuid: "npm:^10.0.0"
+  checksum: 10c0/57558e1b0b9dd3f77d8e733d93a33ed9c4b7cc284109c73a16cf1c8705af83e2791ddd82e89e7e50ba4b8afabaa1f49aa897dcefda72b9788d087c8dbfaf356b
+  languageName: node
+  linkType: hard
 
 "@visue/web-core@npm:^0.1.0":
   version: 0.1.0
@@ -5136,6 +5214,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsesc@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "jsesc@npm:3.0.2"
+  bin:
+    jsesc: bin/jsesc
+  checksum: 10c0/ef22148f9e793180b14d8a145ee6f9f60f301abf443288117b4b6c53d0ecd58354898dc506ccbb553a5f7827965cd38bc5fb726575aae93c5e8915e2de8290e1
+  languageName: node
+  linkType: hard
+
 "jsesc@npm:~0.5.0":
   version: 0.5.0
   resolution: "jsesc@npm:0.5.0"
@@ -7488,6 +7575,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 10c0/41a5bdd214df2f6c3ecf8622745e4a366c4adced864bc3c833739791aeeeb1838119af7daed4ba36428114b5c67dcda034a79c882e97e43c03e66a4dd7389942
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "uuid@npm:10.0.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 10c0/eab18c27fe4ab9fb9709a5d5f40119b45f2ec8314f8d4cf12ce27e4c6f4ffa4a6321dc7db6c515068fa373c075b49691ba969f0010bf37f44c37ca40cd6bf7fe
   languageName: node
   linkType: hard
 

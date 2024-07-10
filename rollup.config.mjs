@@ -6,16 +6,16 @@ import * as path from 'path';
 import packagejson from 'rollup-plugin-generate-package-json';
 
 const INPUT = './src/index.ts',
-  EXTENTIONS = ['.ts', '.js'],
+  EXTENTIONS = ['.ts', '.js', '.tsx', '.jsx'],
   EXTENTION_CJS = 'js',
   EXTENTION_ESM = 'mjs',
   // node_modules配下のdependenciesはバンドルしない。下記の正規表現の指定をするためには'@rollup/plugin-node-resolve'が必要
-  EXTERNAL = [/node_modules/, /@visue/],
+  EXTERNAL = [/node_modules/],
   OUTPUT = './build',
   OUTPUT_CJS = OUTPUT,
   OUTPUT_ESM = OUTPUT,
   BABEL_CONFIG_PATH = path.resolve('babel.config.js'),
-  TEST_FILE = /.+\.test\..+/;
+  TSCONFIG_PATH = path.resolve('tsconfig.json');
 
 // commonjs用とesmodule用のソースを出力する
 const config = [
@@ -38,8 +38,7 @@ const config = [
     plugins: [
       nodeResolve(),
       typescript({
-        tsconfig: './tsconfig.json',
-        exclude: [TEST_FILE],
+        tsconfig: TSCONFIG_PATH,
         declarationDir: OUTPUT_CJS,
         outDir: OUTPUT_CJS,
       }),
@@ -81,10 +80,9 @@ const config = [
     plugins: [
       nodeResolve(),
       typescript({
-        tsconfig: './tsconfig.json',
+        tsconfig: TSCONFIG_PATH,
         declaration: false,
         declarationMap: false,
-        exclude: [TEST_FILE],
         outDir: OUTPUT_ESM,
       }),
       babel({

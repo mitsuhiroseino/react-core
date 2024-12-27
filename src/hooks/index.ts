@@ -14,7 +14,5 @@ export { default as useRefs } from './useRefs';
 export { default as useResize } from './useResize';
 export { default as useStringAnimation } from './useStringAnimation';
 export { default as useSyncedValues } from './useSyncedValues';
-export { default as useValue } from './useValue';
 export { default as useValueAnimation } from './useValueAnimation';
-export { default as useValues } from './useValues';
 export { default as useWorkerJs } from './useWorkerJs';
